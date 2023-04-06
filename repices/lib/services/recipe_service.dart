@@ -1,21 +1,13 @@
-// import 'dart:convert';
-// import 'dart:io';
 import 'package:dio/dio.dart';
-// import 'package:flutter/material.dart';
+
 import 'package:hive/hive.dart';
-
-// import 'package:http/http.dart' as http;
-// import 'package:provider/provider.dart';
-
-// import '../trash/models/recipeModel.dart';
-// import '../state_data.dart';
 
 class Services {
   List<dynamic> data = [];
   String search = '';
 
   Future<List> getData() async {
-    List recipeList ;
+
     int lastIndex;
 
     var box = Hive.box("search");
@@ -31,14 +23,11 @@ class Services {
           data = response.data['hits'];
         }
 
-        // print('data geldi: ${data[0]["recipe"]["label"]}');
-     
-        print("getRecipeList Calist");
+        print("getData Calist");
         await dataBox.clear();
         dataBox.add(data);
 
-        print("++++++++++++++++${data[0]['recipe']['label']}");
-        getBisi();
+        getRecipe();
         return data;
       } on DioError catch (e) {
         return Future.error(e.message.toString());
@@ -46,16 +35,14 @@ class Services {
     } else {
       return [];
     }
-    
   }
-  Future<List> getBisi()async{
 
+  Future<List> getRecipe() async {
     var dataBox = Hive.box('data');
-    var block ;
+    var block;
     block = dataBox.getAt(0);
-    // print("---------$block");
-    // print("=========${block[0]['recipe']['label']}");
-    // print(data);
+    print("getRecipe Calist");
+
     return block;
   }
 }

@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:repices/services/recipe_service.dart';
 
 class StateDataCH extends ChangeNotifier {
-  String bosString = 'b';
+  String bosString = '';
   String name = "adanda";
   List<dynamic> simdilikListe = [];
   List<dynamic> denemeListe = [];
@@ -12,22 +12,8 @@ class StateDataCH extends ChangeNotifier {
   int index = 0;
   List listState = [];
   Services recipeServices = Services();
-  Future<void> favoriteList() async {
-    var box = Hive.box('favorite');
-    denemeListe.add(box.toMap());
-    for (var i = 0; i < denemeListe[0].length; i++) {
-      simdilikListe.add(denemeListe[0][i]);
-      print("BASLADII");
-    }
-  }
-  Future<void> favoriteDelete(index)async{
-    var box = Hive.box('favorite');
-    // favoriteList();
-    box.deleteAt(index);
-    print("SILINDI");
-    // notifyListeners();
-  }
 
+  
   Future<void> newSearch(String search) async {
     var box = Hive.box("search");
 
@@ -80,37 +66,11 @@ class StateDataCH extends ChangeNotifier {
     return favoriteBool;
   }
 
-  Future<void> searchClear() async {
-    var box = Hive.box("search");
-    await box.clear();
-  }
-
-  List stateListe() {
-    List labelList = [];
-
-    return labelList;
-  }
-
   void addList(List data, int int) {
     listState = data;
     index = int;
     notifyListeners();
   }
 
-  Future<void> getName(String newName, int newIndex) async {
-    var box = Hive.box('index');
-    int lastIndex;
-    int ram;
-
-    name = newName;
-    box.add(newIndex);
-    lastIndex = box.length - 1;
-    ram = box.getAt(lastIndex);
-    await box.clear();
-    box.add(ram);
-
-    print('index numarasi${box.values}');
-
-    notifyListeners();
-  }
+  
 }

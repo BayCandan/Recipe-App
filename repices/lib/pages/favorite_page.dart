@@ -1,70 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
 
-import '../state_data.dart';
-
-class FavoritePage extends StatefulWidget {
-  const FavoritePage({super.key});
+class Slid extends StatefulWidget {
+  const Slid({super.key});
 
   @override
-  State<FavoritePage> createState() => _FavoritePageState();
+  State<Slid> createState() => _SlidState();
 }
 
-class _FavoritePageState extends State<FavoritePage> {
-  List<String> _values = ['One', 'Two', 'Three', 'Four', 'Five'];
+List<dynamic> simdilikListe = [];
+List<dynamic> denemeListe = [];
+List<dynamic> ramList = [];
+var box = Hive.box("favorite");
 
-  List<dynamic> denemeListe = [];
+class _SlidState extends State<Slid> {
   @override
-  
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    simdilikListe.clear();
+    denemeListe.add(box.toMap());
+    for (var i = 0; i < denemeListe[0].length; i++) {
+      simdilikListe.add(denemeListe[0][i]);
+    }
+    denemeListe.clear();
+    for (var i = 0; i < simdilikListe.length; i++) {
+      if (simdilikListe[i] == null) {
+        simdilikListe[i] = box.getAt(i);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    
-    List simdilikListe = Provider.of<StateDataCH>(context).simdilikListe;
-    // Function favoriteList = Provider.of<StateDataCH>(context).favoriteList;
-    Function favoriteDelete = Provider.of<StateDataCH>(context).favoriteDelete;
-
-    DismissDirection _dismissDirection = DismissDirection.horizontal;
-
-    var box = Hive.box("favorite");
-    var searchBox = Hive.box("search");
-
-    Widget deleteBgItem() {
-      return Container(
-        alignment: Alignment.centerRight,
-        padding: EdgeInsets.only(right: 20),
-        color: Colors.red.shade300,
-        child: Icon(
-          Icons.delete,
-          color: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Recipe App",
+          style: TextStyle(
+              color: Colors.black, fontSize: 25, fontWeight: FontWeight.w600),
         ),
-      );
-    }
+        iconTheme: IconThemeData(color: Colors.black54),
+        elevation: 0,
+      ),
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.white,
+          child: ListView.builder(
+            itemCount: simdilikListe.length,
+            itemBuilder: (context, index) {
+              return Slidable(
+                startActionPane: ActionPane(
+                  motion: StretchMotion(),
+                  children: [
+                    SlidableAction(
+                      
+                      onPressed: ((context) {
+                        setState(() {
+                          simdilikListe.removeAt(index);
+                          ramList = simdilikListe;
+                          print('Simdi Delete$simdilikListe');
+                          box.deleteAt(index);
+                          print('BOX Delete ${box.values}');
+                        });
+                      }),
+                      backgroundColor: Colors.red,
+                      icon: Icons.delete,
+                    ),
+                  ],
+                ),
+                child: 
+                Container(
+                        margin:  EdgeInsets.symmetric(vertical: 5),         
 
-    Widget rowItem(context, index) {
-      // final item = _values[index];
-      return Dismissible(
-        key: UniqueKey(),
-        direction: _dismissDirection,
-        onDismissed: (DismissDirection direction) {
-          // print(box.getAt(index));
-          setState(() {
-            favoriteDelete(index);
-            print(simdilikListe);
-            print(box.values);
-          });
-        },
-        background: deleteBgItem(),
-        child: InkWell(
-          onTap: () {},
-          child: Card(
-            child: Container(
-              height: 130,
+              height: 140,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -72,11 +88,12 @@ class _FavoritePageState extends State<FavoritePage> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.all(0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
+                            // color: Colors.grey.shade200,
                             margin: EdgeInsets.only(top: 10),
                             child: Text(
                               simdilikListe[index][0],
@@ -93,47 +110,26 @@ class _FavoritePageState extends State<FavoritePage> {
                   SizedBox(
                     width: 5,
                   ),
-                  // Container(
-                  //   width: 200,
-                  //   child: ClipRRect(
-                  //     borderRadius:
-                  //         BorderRadius.horizontal(right: Radius.circular(10)),
-                  //     child: Image.network(
-                  //       simdilikListe[index][1],
-                  //       fit: BoxFit.cover,
-                  //     ),
-                  //   ),
-                  // )
+                  Container(
+                    color: Colors.grey.shade200,
+                    margin: EdgeInsets.all(10),
+                    width: 200,
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.horizontal(right: Radius.circular(10)),
+                      child: Image.network(
+                        simdilikListe[index][2],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
+              );
+            },
           ),
         ),
-      );
-    }
-
-    Widget showList() {
-      return ListView.builder(
-          padding: EdgeInsets.all(10),
-          itemCount: simdilikListe.length,
-          itemBuilder: (BuildContext contex, int index) {
-            return rowItem(contex, index);
-          });
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Recipe App",
-          style: TextStyle(
-              color: Colors.black, fontSize: 25, fontWeight: FontWeight.w600),
-        ),
-        iconTheme: IconThemeData(color: Colors.black54),
-        elevation: 0,
-      ),
-      body: Container(
-        child: showList(),
       ),
     );
   }

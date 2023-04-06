@@ -1,21 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:repices/pages/deneme_ynei.dart';
-import 'package:repices/pages/favorite_page.dart';
-import 'package:repices/pages/slideble_deneme.dart';
-import 'package:repices/trash/custom_search.dart';
-import 'package:repices/pages/favorite.dart';
-import 'package:repices/pages/son.dart';
-
+import 'package:repices/pages/detail_page.dart';
+import 'package:repices/pages/history.dart';
 import '../services/recipe_service.dart';
 import '../state_data.dart';
-import 'details.dart';
+import 'favorite_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -31,7 +21,7 @@ class _SearchPageState extends State<SearchPage> {
   double dabil = 2.25555;
   @override
   Widget build(BuildContext context) {
-    Function newName = Provider.of<StateDataCH>(context).getName;
+
     Function addList = Provider.of<StateDataCH>(context).addList;
     Function search = Provider.of<StateDataCH>(context).newSearch;
     String bosString = Provider.of<StateDataCH>(context).bosString;
@@ -43,12 +33,13 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Container(
+
         // color: Colors.white,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10),
                 bottomRight: Radius.circular(10)),
-            color: Colors.grey.shade200),
+            color: Colors.grey.shade300),
 
         width: MediaQuery.of(context).size.width * 0.75,
         height: MediaQuery.of(context).size.height * 0.767,
@@ -63,7 +54,7 @@ class _SearchPageState extends State<SearchPage> {
                 color: Colors.grey,
                 image: DecorationImage(
                     image: NetworkImage(
-                      "https://www.kevserinmutfagi.com/wp-content/uploads/2012/10/coban_salata1.jpg",
+                      "https://media.istockphoto.com/id/1218254547/photo/varied-food-carbohydrates-protein-vegetables-fruits-dairy-legumes-on-wood.jpg?b=1&s=170667a&w=0&k=20&c=uGHRWrmqv4Nxdj7iUO4iYavWLjqFB3uwH1K3RQ9NID0=",
                     ),
                     fit: BoxFit.cover),
               ),
@@ -95,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
               title: const Text("About"),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Favorite()));
+                    MaterialPageRoute(builder: (context) => SearchHistory()));
               },
             ),
           ],
@@ -139,13 +130,9 @@ class _SearchPageState extends State<SearchPage> {
                
                   
                 onSubmitted: (String giris) {
-                 
                   search(giris);
-                  textfiedldeneme(giris);
-
                 },
-                // autocorrect: false,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade300,
@@ -167,7 +154,7 @@ class _SearchPageState extends State<SearchPage> {
                     child: Center(
                       child: FutureBuilder<List>(
                         
-                        future: _recipeServices.getBisi(),
+                        future: _recipeServices.getRecipe(),
                         // future: newSearch(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
@@ -184,7 +171,7 @@ class _SearchPageState extends State<SearchPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                DenemePage()));
+                                                DetailPage()));
                                   },
                                   child: AspectRatio(
                                     aspectRatio: 2.8,
@@ -264,16 +251,14 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-
-  textfiedldeneme(String giris) {
-    // Provider.of<StateDataCH>(context).newSearch(giris);
-    
-    print(giris);
-  }
-
   Widget Bos() {
-    return Container(
-      child: Text("LOOOOOOO"),
+    return Column(
+      children: [
+        SizedBox(height: 100,),
+        Center(
+          child: Text("Please Search To Sort The List.",style: TextStyle(fontSize: 25),),
+        ),
+      ],
     );
   }
 }

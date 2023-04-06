@@ -1,25 +1,26 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:repices/my_icon_pack_icons.dart';
+
 
 import 'package:repices/state_data.dart';
 
 import '../services/recipe_service.dart';
 // import 'package:riverpod/riverpod.dart';
 
-class DenemePage extends StatefulWidget {
-  DenemePage({
+class DetailPage extends StatefulWidget {
+  DetailPage({
     super.key,
   });
 
   @override
-  State<DenemePage> createState() => _DenemePageState();
+  State<DetailPage> createState() => _DetailPageState();
 }
 
-class _DenemePageState extends State<DenemePage> {
+class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(
     BuildContext context,
@@ -30,24 +31,18 @@ class _DenemePageState extends State<DenemePage> {
 
     Size size = MediaQuery.of(context).size;
     Function favoriteButton = Provider.of<StateDataCH>(context).favoriteButton;
-    Function favoriteChanhe = Provider.of<StateDataCH>(context).favoriteChange;
+    Function favoriteChanhge = Provider.of<StateDataCH>(context).favoriteChange;
     List data = Provider.of<StateDataCH>(context).listState;
     int indexGenel = Provider.of<StateDataCH>(context).index;
-    // bool favoriteBool = Provider.of<StateDataCH>(context).favoriteBool;
 
     List len = data[indexGenel]['recipe']['ingredients'];
-    String calori = data[indexGenel]['recipe']['colories'].toString();
-    String totalTime = data[indexGenel]['recipe']['totalTime'].toString();
-    // print("_________------______-${len.length}");
-    // print("_________------______-$len");
-    // print("_________------______-${len[0]}");
-    // print("_________------______-${len[1]}");
-    // print("_________------______-${len[2]['text']}");
-    // print("_________------______-$totalTime");
-    // print("_________------______-$calori");
-    bool bol = true;
+
+
+
+
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
@@ -58,26 +53,38 @@ class _DenemePageState extends State<DenemePage> {
           textAlign: TextAlign.center,
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.favorite_rounded),
-            onPressed: () {
-              
-              favoriteList.add(data[indexGenel]['recipe']['label']);
-              favoriteList.add(data[indexGenel]['recipe']['cuisineType'][0]);
-              favoriteBox.put(favoriteBox.length, favoriteList);
-                print("*******${favoriteBox.values}");
-            },
-          )
-          // data[indexGenel]['recipe']['label'],
-          // favoriteButton(data[indexGenel]['recipe']['label'])
-          //  favoriteList.add(data[indexGenel]['recipe']['image']);
-          //  favoriteList.add(len);
-          //  print(favoriteList);
-         
-          //  print("*******${favoriteBox.getAt(1)}");
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(right: 10),
+              width: 65,
+              height: 65,
+              child: AnimatedButton(
+                  text: ' ',
+                  icon: Icons.favorite,
+                  pressEvent: (() {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.success,
+                      animType: AnimType.topSlide,
+                      showCloseIcon: true,
+                      title: "SUCCESS",
+                      desc: "Add To Favorites",
+                      btnCancelOnPress: () {},
+                      btnOkOnPress: () {
+                        favoriteList.add(data[indexGenel]['recipe']['label']);
+                        favoriteList
+                            .add(data[indexGenel]['recipe']['cuisineType'][0]);
+                        favoriteList.add(data[indexGenel]['recipe']['image']);
+
+                        favoriteBox.put(favoriteBox.length, favoriteList);
+                        print("*******${favoriteBox.values}");
+                      },
+                    ).show();
+                  })),
+            ),
+          ),
         ],
         iconTheme: IconThemeData(color: Colors.black54),
-        elevation: 0,
       ),
       body: Column(
         children: [
@@ -99,7 +106,7 @@ class _DenemePageState extends State<DenemePage> {
               Container(
                 padding: EdgeInsets.all(10),
 
-                margin: EdgeInsets.only(bottom: 40, left: 20),
+                margin: EdgeInsets.only(bottom: 25, left: 20),
 
                 // height: 50,
                 // color: Color.fromARGB(255, 160, 159, 159),
@@ -114,7 +121,7 @@ class _DenemePageState extends State<DenemePage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 40, right: 20),
+                margin: EdgeInsets.only(bottom: 25, right: 20),
                 padding: EdgeInsets.all(10),
                 // width: 100,
                 // height: 50,
@@ -136,9 +143,7 @@ class _DenemePageState extends State<DenemePage> {
             child: Container(
               height: size.height / 2,
               width: size.width,
-              // margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                // color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Padding(
@@ -182,66 +187,7 @@ class _DenemePageState extends State<DenemePage> {
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      // child: Row(
-                      //   mainAxisSize: MainAxisSize.max,
-                      //   children: [
-                      //     // Text(
-                      //     //   "Ingridients (${len.length.toString()})",
-                      //     //   style: const TextStyle(
-                      //     //       color: Colors.black,
-                      //     //       fontSize: 20,
-                      //     //       fontWeight: FontWeight.w600),
-                      //     //   maxLines: 3,
-                      //     // ),
-                      //   ],
-                      // ),
                     ),
-                    // Container(
-                    //   color: Colors.amber,
-                    //   padding: EdgeInsets.symmetric(vertical: 10),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //     mainAxisSize: MainAxisSize.max,
-                    //     children: [
-                    //       Container(
-                    //         // width: (size.width / 2)-20,
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Row(
-                    //               children: [
-                    //                 Icon(MyIconPack.flame),
-                    //                 Text(
-                    //                   "${data[indexGenel]['recipe']['colories'].toString()}",
-                    //                   textAlign: TextAlign.start,
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       Container(
-                    //         // width: size.width / 2,
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Row(
-                    //               children: [
-                    //                 Icon(Icons.timer),
-                    //                 Text(
-                    //                   "${data[indexGenel]['recipe']['totalTime'].toString()}",
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
                     Expanded(
                         child: ListView.builder(
                             itemCount: len.length,
@@ -267,6 +213,13 @@ class _DenemePageState extends State<DenemePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget IconFav() {
+    return Icon(
+      Icons.favorite_outlined,
+      color: Colors.red,
     );
   }
 
