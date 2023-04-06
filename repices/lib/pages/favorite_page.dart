@@ -4,11 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class Slid extends StatefulWidget {
-  const Slid({super.key});
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({super.key});
 
   @override
-  State<Slid> createState() => _SlidState();
+  State<FavoritePage> createState() => _FavoritePage();
 }
 
 List<dynamic> simdilikListe = [];
@@ -16,10 +16,9 @@ List<dynamic> denemeListe = [];
 List<dynamic> ramList = [];
 var box = Hive.box("favorite");
 
-class _SlidState extends State<Slid> {
+class _FavoritePage extends State<FavoritePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     simdilikListe.clear();
     denemeListe.add(box.toMap());
@@ -55,7 +54,7 @@ class _SlidState extends State<Slid> {
             itemCount: simdilikListe.length,
             itemBuilder: (context, index) {
               return Slidable(
-                startActionPane: ActionPane(
+                endActionPane: ActionPane(
                   motion: StretchMotion(),
                   children: [
                     SlidableAction(
@@ -66,7 +65,7 @@ class _SlidState extends State<Slid> {
                           ramList = simdilikListe;
                           print('Simdi Delete$simdilikListe');
                           box.deleteAt(index);
-                          print('BOX Delete ${box.values}');
+                          print('BOX Delete${box.values}');
                         });
                       }),
                       backgroundColor: Colors.red,

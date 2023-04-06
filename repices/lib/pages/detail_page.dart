@@ -46,10 +46,11 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
+          overflow: TextOverflow.ellipsis,
           "${data[indexGenel]['recipe']['label']}",
           style: const TextStyle(
               color: Colors.black, fontSize: 25, fontWeight: FontWeight.w600),
-          maxLines: 3,
+          maxLines: 1,
           textAlign: TextAlign.center,
         ),
         actions: [
@@ -110,6 +111,7 @@ class _DetailPageState extends State<DetailPage> {
 
                 // height: 50,
                 // color: Color.fromARGB(255, 160, 159, 159),
+                
                 child: Text(
                   "Ingridients (${len.length.toString()})",
                   style: const TextStyle(

@@ -3,6 +3,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:repices/pages/detail_page.dart';
 import 'package:repices/pages/history.dart';
+import 'package:repices/widget/drawer_widget.dart';
+import 'package:repices/widget/search_isEmpty.dart';
 import '../services/recipe_service.dart';
 import '../state_data.dart';
 import 'favorite_page.dart';
@@ -21,7 +23,6 @@ class _SearchPageState extends State<SearchPage> {
   double dabil = 2.25555;
   @override
   Widget build(BuildContext context) {
-
     Function addList = Provider.of<StateDataCH>(context).addList;
     Function search = Provider.of<StateDataCH>(context).newSearch;
     String bosString = Provider.of<StateDataCH>(context).bosString;
@@ -32,66 +33,7 @@ class _SearchPageState extends State<SearchPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Container(
-
-        // color: Colors.white,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
-            color: Colors.grey.shade300),
-
-        width: MediaQuery.of(context).size.width * 0.75,
-        height: MediaQuery.of(context).size.height * 0.767,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                ),
-                color: Colors.grey,
-                image: DecorationImage(
-                    image: NetworkImage(
-                      "https://media.istockphoto.com/id/1218254547/photo/varied-food-carbohydrates-protein-vegetables-fruits-dairy-legumes-on-wood.jpg?b=1&s=170667a&w=0&k=20&c=uGHRWrmqv4Nxdj7iUO4iYavWLjqFB3uwH1K3RQ9NID0=",
-                    ),
-                    fit: BoxFit.cover),
-              ),
-              child: Text(''),
-            ),
-            ListTile(
-              leading: Icon(Icons.history),
-              title: const Text("Search History"),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchHistory()));
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.favorite,
-                color: Colors.red,
-              ),
-              title: const Text("Favorite dishes"),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Slid()));
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.info,
-              ),
-              title: const Text("About"),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchHistory()));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: DrawerWidget(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
@@ -127,8 +69,7 @@ class _SearchPageState extends State<SearchPage> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
-               
-                  
+                controller: _controller,
                 onSubmitted: (String giris) {
                   search(giris);
                 },
@@ -148,17 +89,14 @@ class _SearchPageState extends State<SearchPage> {
               height: 20,
             ),
             bosString.isEmpty
-                ? Bos()
-                : 
-                Expanded(
+                ? isEmptyWidget()
+                : Expanded(
                     child: Center(
                       child: FutureBuilder<List>(
-                        
-                        future: _recipeServices.getRecipe(),
+                        future: _recipeServices.getData(),
                         // future: newSearch(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            
                             var result = snapshot.data!;
                             return ListView.builder(
                               itemBuilder: (context, index) {
@@ -166,7 +104,6 @@ class _SearchPageState extends State<SearchPage> {
                                 return InkWell(
                                   onTap: () {
                                     addList(user, index);
-                                    // newName(user[index]["recipe"]["label"], index);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -251,14 +188,6 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-  Widget Bos() {
-    return Column(
-      children: [
-        SizedBox(height: 100,),
-        Center(
-          child: Text("Please Search To Sort The List.",style: TextStyle(fontSize: 25),),
-        ),
-      ],
-    );
-  }
+
+  
 }
