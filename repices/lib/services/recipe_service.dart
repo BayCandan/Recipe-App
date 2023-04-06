@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:hive/hive.dart';
 
@@ -7,6 +8,8 @@ class Services {
   String search = '';
 
   Future<List> getData() async {
+    String ID = dotenv.get("APP_ID", fallback: "");
+    String KEY = dotenv.get("APP_KEY", fallback: "");
 
     int lastIndex;
 
@@ -18,7 +21,7 @@ class Services {
     if (search.isNotEmpty) {
       try {
         var response = await Dio().get(
-            'https://api.edamam.com/search?q=$search&app_id=0e8815f8&app_key=4b6ff7e246529f262865656ad6f35db2');
+            'https://api.edamam.com/search?q=$search&app_id='+ID+'&app_key='+KEY);
         if (response.statusCode == 200) {
           data = response.data['hits'];
         }
