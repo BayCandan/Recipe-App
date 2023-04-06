@@ -65,6 +65,7 @@ class _DenemePageState extends State<DenemePage> {
               favoriteList.add(data[indexGenel]['recipe']['label']);
               favoriteList.add(data[indexGenel]['recipe']['cuisineType'][0]);
               favoriteBox.put(favoriteBox.length, favoriteList);
+                print("*******${favoriteBox.values}");
             },
           )
           // data[indexGenel]['recipe']['label'],
@@ -72,7 +73,7 @@ class _DenemePageState extends State<DenemePage> {
           //  favoriteList.add(data[indexGenel]['recipe']['image']);
           //  favoriteList.add(len);
           //  print(favoriteList);
-          //  print("*******${favoriteBox.values}");
+         
           //  print("*******${favoriteBox.getAt(1)}");
         ],
         iconTheme: IconThemeData(color: Colors.black54),

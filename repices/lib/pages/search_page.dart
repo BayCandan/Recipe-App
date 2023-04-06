@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:repices/pages/deneme_ynei.dart';
 import 'package:repices/pages/favorite_page.dart';
+import 'package:repices/pages/slideble_deneme.dart';
 import 'package:repices/trash/custom_search.dart';
 import 'package:repices/pages/favorite.dart';
 import 'package:repices/pages/son.dart';
@@ -84,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
               title: const Text("Favorite dishes"),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FavoritePage()));
+                    MaterialPageRoute(builder: (context) => Slid()));
               },
             ),
             ListTile(

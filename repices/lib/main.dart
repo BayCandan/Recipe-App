@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:repices/pages/deneme_ynei.dart';
 import 'package:repices/pages/favorite.dart';
 import 'package:repices/pages/search_page.dart';
+import 'package:repices/pages/slideble_deneme.dart';
 import 'package:repices/pages/son.dart';
 import 'package:repices/state_data.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+
+import '../state_data.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -11,48 +14,23 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
+  List<String> _values = ['One', 'Two', 'Three', 'Four', 'Five'];
+
+  List<dynamic> denemeListe = [];
+  @override
+  
+
   @override
   Widget build(BuildContext context) {
-    List<String> _values = ['One', 'Two', 'Three', 'Four', 'Five'];
+    
+    List simdilikListe = Provider.of<StateDataCH>(context).simdilikListe;
+    // Function favoriteList = Provider.of<StateDataCH>(context).favoriteList;
+    Function favoriteDelete = Provider.of<StateDataCH>(context).favoriteDelete;
+
+    DismissDirection _dismissDirection = DismissDirection.horizontal;
+
     var box = Hive.box("favorite");
     var searchBox = Hive.box("search");
-
-    List<dynamic> simdilikListe = [];
-    List<dynamic> denemeListe = [];
-    print(box.toMap().toString());
-    denemeListe.add(box.toMap());
-
-    for (var i = 0; i < denemeListe[0].length; i++) {
-      simdilikListe.add(denemeListe[0][i]);
-    }
-    addList() {
-      // print('deneme listes ${denemeListe}');
-      // print('deneme listes ${denemeListe[0]}');
-      // print('deneme listes ${denemeListe[0][0]}');
-      // print('deneme listes ${denemeListe[0][1]}');
-      // print('deneme listes ${denemeListe[0][2]}');
-
-      print("                  ");
-      print("             -     ");
-      print("                  ");
-      print("              -    ");
-
-      print(denemeListe[0].length.toString());
-
-      print("${simdilikListe[0]}");
-
-      // simdilikListe.add(searchBox.getAt(0));
-      // simdilikListe.add(searchBox.getAt(1));
-      // simdilikListe.add(searchBox.getAt(2));
-      // simdilikListe.add(searchBox.getAt(4));
-      print("_+_+_+_");
-      // print(simdilikListe[1][0]);
-      // print(simdilikListe[2][0]);
-      // print(simdilikListe[3][0]);
-      print(box.get(0));
-      // var kus = box.get(0).cast<String,dynamic>();
-      print("KUSSSSS ");
-    }
 
     Widget deleteBgItem() {
       return Container(
@@ -67,17 +45,16 @@ class _FavoritePageState extends State<FavoritePage> {
     }
 
     Widget rowItem(context, index) {
+      // final item = _values[index];
       return Dismissible(
         key: UniqueKey(),
+        direction: _dismissDirection,
         onDismissed: (DismissDirection direction) {
-          if (direction == DismissDirection.startToEnd) {
-            print("Add to favorite");
-          } else {
-            print('Remove item');
-          }
-
+          // print(box.getAt(index));
           setState(() {
-            _values.removeAt(index);
+            favoriteDelete(index);
+            print(simdilikListe);
+            print(box.values);
           });
         },
         background: deleteBgItem(),
@@ -102,7 +79,7 @@ class _FavoritePageState extends State<FavoritePage> {
                           Container(
                             margin: EdgeInsets.only(top: 10),
                             child: Text(
-                              _values[index],
+                              simdilikListe[index][0],
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -138,7 +115,7 @@ class _FavoritePageState extends State<FavoritePage> {
     Widget showList() {
       return ListView.builder(
           padding: EdgeInsets.all(10),
-          itemCount: _values.length,
+          itemCount: simdilikListe.length,
           itemBuilder: (BuildContext contex, int index) {
             return rowItem(contex, index);
           });

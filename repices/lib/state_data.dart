@@ -6,12 +6,27 @@ import 'package:repices/services/recipe_service.dart';
 class StateDataCH extends ChangeNotifier {
   String bosString = 'b';
   String name = "adanda";
-
-
+  List<dynamic> simdilikListe = [];
+  List<dynamic> denemeListe = [];
 
   int index = 0;
   List listState = [];
   Services recipeServices = Services();
+  Future<void> favoriteList() async {
+    var box = Hive.box('favorite');
+    denemeListe.add(box.toMap());
+    for (var i = 0; i < denemeListe[0].length; i++) {
+      simdilikListe.add(denemeListe[0][i]);
+      print("BASLADII");
+    }
+  }
+  Future<void> favoriteDelete(index)async{
+    var box = Hive.box('favorite');
+    // favoriteList();
+    box.deleteAt(index);
+    print("SILINDI");
+    // notifyListeners();
+  }
 
   Future<void> newSearch(String search) async {
     var box = Hive.box("search");
@@ -49,7 +64,7 @@ class StateDataCH extends ChangeNotifier {
     print('########');
   }
 
-  bool favoriteChange(String label)  {
+  bool favoriteChange(String label) {
     var box = Hive.box('favorite');
     var favoriteBool = false;
     for (var i = 0; i < box.length; i++) {
