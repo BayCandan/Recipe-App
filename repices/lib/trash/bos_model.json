@@ -1,0 +1,67 @@
+{
+    "label": "Steak & Chips Salad",
+    "image": "https://edamam-product-images.s3.amazonaws.com/web-img/72e/72ebeef4f13b029165ce5fc4a675130e.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjELf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQCmpIz0T%2FJ4xV32M1VmYfodGQVEN76eAOiQ97y%2F04%2FvQAIgLWDYy2vyQk2IIXozr1uIwtvafriRuXf%2FcxnxAUb3TOIqwgUIj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwxODcwMTcxNTA5ODYiDMlc3Tq%2BPp8Wz82i%2BCqWBRv94xXZ6XPYpjEHFg8jODuGIRkwK%2B9rxys5PrvnsE%2Bla7ppTI4DAhSOtVNxNaYM9nMhHW96%2FnWgETCRui48YvSPrPdHswN1TVp6Ba8P3SBUtGrCTBOKQtDHcptdVSBmLE2FLTd%2B3iWMc9CmLleWDn%2Bww49UaJ1BoJoBa7rOLt37kswAGOWy%2FISMyn7QIQBqgksiAaI7apKG33H%2FavVn%2BQTyTUf3NSPFIXHZhpHGWd8A9aEZ9gTD5JIYLfJ%2Bsiq97xN2s%2FtnMaZVGcCbI9CAYbh%2FtXHK1tVSE49aPpm1T2Osq%2B2gz1fW6OAVUuwmA5DQ%2FFvFsAfQYMBtj8ofC9qPBGfs8eI8n%2FgYZAcu90YjjR9k07NopOC4yhXlde%2Fu3X2KGAJnwXYKKqx09sBWBNLAR1A%2BMhsSgJQ7xAT60sxeyj6Z%2B0G8yVm9LuWPd098r%2BoKPkoCa04kCT2GQUhBqpExIdbjslZkGFvpFwu8VJZQ%2FTwZKKPe0PY8a2qVjccg4OyiwUAelfnf2PKmOG1e64RTiNgxS34BLjzxx%2B9tyyCXF2i2%2B6K2A1tiJ%2BFW2PKjIrCgCH6FiX0Sc%2FaY25tNYn%2Fjv89aLHu%2BJRvKMVDnnOV7Ue58MGEtgGyhQtKa8PEOmx%2F8fRv4W%2FAQOcKzXQEHj97ZGbU1tKXI%2FfLV%2B7%2Fh544OU4rtc7afWssh3LVmgVKNYgSXJd89w52AInor3yAdzanjZw%2FyVR7s39I6syAY4qnLVTfPOCMWH1YTySxyJh8rDBJtd73t9LG3Vk58xTCTl%2Bz85VwyH%2F3hJObOXf4VtGglnBiU66ca4Jch5Q%2Bg3mXgp8yKVgreK53QPEiP9UBj1RGYNcNacsPBqJdVy6F6y47gga41wtpZTe6yMOTSm6EGOrEBO2NlV3rijZHQ%2FGrhG%2F6D5lljS238GIQ8md5jaqvEiakk9vLQQaDMGkSe%2Fc6WWe1mk%2F7Un0oZkTOtfyd%2F1eF4XVTajW9ieAHRlHIuDF3AlRsE4vZmPUGugogDdy%2BLr%2BcDVqp%2Fynjetbf8YBnYmrEl3Xv70axL0L9NR%2BdlqMBNJ6EpW%2BcMZn2tVPOkDQW%2FmZyAC7ANMeoqKRyDrfNvgpqSv7vqmJXHKIpFH1077bHkFaZH&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230331T142021Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFOKMH4QXB%2F20230331%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=eb4f14acd338d8dce1c90e1cfe17ff8f758843fc9e05306eca0df3ea88a8e4b1",
+    "dietLabels": [
+        "High-Fiber"
+    ],
+    "ingredientLines": [
+        "750.0g bag frozen potato wedges",
+        "1.0 tbsp olive oil",
+        "2 pieces sirloin steak , about 350g/12oz in total",
+        "120.0g bag herb salad",
+        "6.0 tbsp honey and mustard salad dessing , bought or homemade"
+    ],
+    "ingredients": [
+        {
+            "text": "750.0g bag frozen potato wedges",
+            "quantity": 750.0,
+            "measure": "gram",
+            "food": "potato",
+            "weight": 750.0,
+            "foodCategory": "vegetables",
+            "foodId": "food_abiw5baauresjmb6xpap2bg3otzu",
+            "image": "https://www.edamam.com/food-img/651/6512e82417bce15c2899630c1a2799df.jpg"
+        }
+    ],
+    "calories": 2922.3049999990526,
+    "totalWeight": 1782.8749999984213,
+    "totalTime": 0.0,
+    "cuisineType": [
+        "american"
+    ],
+    "mealType": [
+        "lunch/dinner"
+    ],
+    "dishType": [
+        "salad"
+    ],
+    "totalNutrients": {
+        "ENERC_KCAL": {
+            "label": "Energy",
+            "quantity": 2922.3049999990526,
+            "unit": "kcal"
+        },
+        "FAT": {
+            "label": "Fat",
+            "quantity": 123.31372499994727,
+            "unit": "g"
+        },
+        "CHOCDF": {
+            "label": "Carbs",
+            "quantity": 317.02076249990796,
+            "unit": "g"
+        },
+        "SUGAR": {
+            "label": "Sugars",
+            "quantity": 112.23224999998548,
+            "unit": "g"
+        },
+        
+        "PROCNT": {
+            "label": "Protein",
+            "quantity": 165.40822499994096,
+            "unit": "g"
+        }
+        
+    }
+}
