@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:repices/widget/custom_SizedBox.dart';
 
-Widget isEmptyWidget() {
+Widget EmptyWidget() {
   return Column(
     children: [
-      SizedBox(
-        height: 100,
-      ),
+      HSB(100.0),
       Center(
         child: Text(
           "Please Search To Sort The List.",

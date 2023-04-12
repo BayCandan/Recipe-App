@@ -11,8 +11,8 @@ class FavoritePage extends StatefulWidget {
   State<FavoritePage> createState() => _FavoritePage();
 }
 
-List<dynamic> simdilikListe = [];
-List<dynamic> denemeListe = [];
+List<dynamic> nowList = [];
+List<dynamic> tryList = [];
 List<dynamic> ramList = [];
 var box = Hive.box("favorite");
 
@@ -20,15 +20,15 @@ class _FavoritePage extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
-    simdilikListe.clear();
-    denemeListe.add(box.toMap());
-    for (var i = 0; i < denemeListe[0].length; i++) {
-      simdilikListe.add(denemeListe[0][i]);
+    nowList.clear();
+    tryList.add(box.toMap());
+    for (var i = 0; i < tryList[0].length; i++) {
+      nowList.add(tryList[0][i]);
     }
-    denemeListe.clear();
-    for (var i = 0; i < simdilikListe.length; i++) {
-      if (simdilikListe[i] == null) {
-        simdilikListe[i] = box.getAt(i);
+    tryList.clear();
+    for (var i = 0; i < nowList.length; i++) {
+      if (nowList[i] == null) {
+        nowList[i] = box.getAt(i);
       }
     }
   }
@@ -51,19 +51,18 @@ class _FavoritePage extends State<FavoritePage> {
           padding: EdgeInsets.all(10),
           color: Colors.white,
           child: ListView.builder(
-            itemCount: simdilikListe.length,
+            itemCount: nowList.length,
             itemBuilder: (context, index) {
               return Slidable(
                 endActionPane: ActionPane(
                   motion: StretchMotion(),
                   children: [
                     SlidableAction(
-                      
                       onPressed: ((context) {
                         setState(() {
-                          simdilikListe.removeAt(index);
-                          ramList = simdilikListe;
-                          print('Simdi Delete$simdilikListe');
+                          nowList.removeAt(index);
+                          ramList = nowList;
+                          print('Simdi Delete$nowList');
                           box.deleteAt(index);
                           print('BOX Delete${box.values}');
                         });
@@ -73,58 +72,54 @@ class _FavoritePage extends State<FavoritePage> {
                     ),
                   ],
                 ),
-                child: 
-                Container(
-                        margin:  EdgeInsets.symmetric(vertical: 5),         
-
-              height: 140,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            // color: Colors.grey.shade200,
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(
-                              simdilikListe[index][0],
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              '${nowList[index][2]}',
+                              alignment: Alignment.center,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    color: Colors.grey.shade200,
-                    margin: EdgeInsets.all(10),
-                    width: 200,
-                    child: ClipRRect(
-                      borderRadius:
-                          BorderRadius.horizontal(right: Radius.circular(10)),
-                      child: Image.network(
-                        simdilikListe[index][2],
-                        fit: BoxFit.cover,
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  "${nowList[index][0]}",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                    ],
+                  ),
+                ),
               );
             },
           ),

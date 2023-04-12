@@ -5,8 +5,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-
 import 'package:repices/state_data.dart';
+import 'package:repices/widget/detail_page/detailImage_widget.dart';
+import 'package:repices/widget/detail_page/detailMid_Widget.dart';
+import 'package:repices/widget/detail_page/detailStick_widget.dart';
+import 'package:repices/widget/detail_page/ingridients_widget.dart';
 
 import '../services/recipe_service.dart';
 // import 'package:riverpod/riverpod.dart';
@@ -37,10 +40,6 @@ class _DetailPageState extends State<DetailPage> {
 
     List len = data[indexGenel]['recipe']['ingredients'];
 
-
-
-
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -70,7 +69,6 @@ class _DetailPageState extends State<DetailPage> {
                       showCloseIcon: true,
                       title: "SUCCESS",
                       desc: "Add To Favorites",
-                      btnCancelOnPress: () {},
                       btnOkOnPress: () {
                         favoriteList.add(data[indexGenel]['recipe']['label']);
                         favoriteList
@@ -89,145 +87,12 @@ class _DetailPageState extends State<DetailPage> {
       ),
       body: Column(
         children: [
-          Container(
-            height: size.height / 4,
-            margin: EdgeInsets.all(20),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                "${data[indexGenel]['recipe']['image']}",
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.all(10),
-
-                margin: EdgeInsets.only(bottom: 25, left: 20),
-
-                // height: 50,
-                // color: Color.fromARGB(255, 160, 159, 159),
-                
-                child: Text(
-                  "Ingridients (${len.length.toString()})",
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
-                  maxLines: 3,
-                  // textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 25, right: 20),
-                padding: EdgeInsets.all(10),
-                // width: 100,
-                // height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.shade300,
-                ),
-                child: Text(
-                  "${data[indexGenel]['recipe']['cuisineType'][0]}",
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
-                ),
-              )
-            ],
-          ),
-          Expanded(
-            child: Container(
-              height: size.height / 2,
-              width: size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 5),
-                            height: 5,
-                            width: 32 * 2,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [Colors.black54, Colors.white54],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 5),
-                            height: 5,
-                            width: 32 * 2,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [Colors.white54, Colors.black54],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                    ),
-                    Expanded(
-                        child: ListView.builder(
-                            itemCount: len.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    // border: Border.all(),
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.grey.shade200),
-                                margin: EdgeInsets.only(bottom: 10),
-                                child: ListTile(
-                                  title: Text("${len[index]['food']}"),
-                                  leading: DoubleText(len[index]['quantity']),
-                                  trailing: Text(
-                                      "${len[index]['measure'].toString()}"),
-                                ),
-                              );
-                            })),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          DetailImage(context, data, indexGenel),
+          DetailMid(data, indexGenel, len),
+          Ingridients(context, len)
         ],
       ),
     );
   }
 
-  Widget IconFav() {
-    return Icon(
-      Icons.favorite_outlined,
-      color: Colors.red,
-    );
-  }
-
-  Widget DoubleText(double gelen) {
-    var giden = gelen.toStringAsFixed(2);
-
-    return Text(giden);
-  }
 }

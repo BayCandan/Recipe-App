@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/favorite_page.dart';
-import '../pages/history.dart';
+import '../pages/history_page.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
