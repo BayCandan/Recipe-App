@@ -22,3 +22,15 @@ Upon opening the app, you'll be greeted by the home screen where you can search 
 Tap on a recipe from the list to view its details, including the recipe name, ingredients, and instructions. If you find a recipe you love, simply tap the "favorite" button to save it to your favorites list.
 
 To access your saved recipes, head over to the favorites screen where you'll find a list of all your favorites. Swipe left on a recipe to remove it from your list
+
+![This is an image](https://github.com/BayCandan/Recipe-App/blob/main/Recipes/assets/fonts/images/homePage.png?raw=true)
+
+![This is an image](https://github.com/BayCandan/Recipe-App/blob/main/Recipes/assets/fonts/images/detailPage.png?raw=true)
+
+![This is an image](https://github.com/BayCandan/Recipe-App/blob/main/Recipes/assets/fonts/images/favoritesPage1.png?raw=true)
+
+![This is an image](https://github.com/BayCandan/Recipe-App/blob/main/Recipes/assets/fonts/images/favoritePage2.png?raw=true)
+
+![This is an image](https://github.com/BayCandan/Recipe-App/blob/main/Recipes/assets/fonts/images/historyPage.png?raw=true)
+
+
