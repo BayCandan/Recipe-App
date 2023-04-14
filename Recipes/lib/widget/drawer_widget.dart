@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../pages/favorite_page.dart';
 import '../pages/history_page.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+   DrawerWidget({super.key});
 
   @override
+  var box = Hive.box("favorite");
+
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
@@ -51,6 +54,10 @@ class DrawerWidget extends StatelessWidget {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => FavoritePage()));
               },
+              trailing: IconButton(onPressed: () async {
+                await box.clear();
+                print("favorites is deleted");
+              }, icon: Icon(Icons.delete)),
             ),
             ListTile(
               leading: Icon(
